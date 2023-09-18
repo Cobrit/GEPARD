@@ -15,13 +15,8 @@ import os
 import re
 
 
-@click.command()
-@click.option('--de', prompt = 'Buscar mensajes de la fecha (AAA/MM/DD)', help = 'La primera fecha del intervalo')
-@click.option('--hasta', prompt = 'A la fecha (AAA/MM/DD)', help = 'La segunda fecha del intervalo')
-@click.option('--userid', prompt = 'Ingresa nombre de usuario', help = 'Nombre de Usuario')
-@click.option('--passwo', prompt = 'Ingresa contraseña', help = 'Contraseña')
 
-def gepard_automation(de, hasta, userid, passwo):
+def gepard_automation(userid, passwo):
     url = "https://www.message-center.com.mx/"
     # Configuración para evitar notificaciones
     chrome_options = Options()
@@ -51,16 +46,13 @@ def gepard_automation(de, hasta, userid, passwo):
     mensajes.click()
     time.sleep(5)
     # Agregar datos
-    desde = wait.until(EC.presence_of_element_located((By.ID, 'FIni')))
-    desde.click()
-    desde.send_keys(de)
-    hastaa = wait.until(EC.element_to_be_clickable((By.ID, 'FFin')))
-    hastaa.click()
-    hastaa.send_keys(hasta)
     buscar = driver.find_element(By.CLASS_NAME, 'cssBtn')
     buscar.click()
-    
+    # Exportar Excel
+    export = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'img[title="Exportar a Excel..."]')))
+    export.click()
+    time.sleep(10)
+    driver.quit()
 
+gepard_automation("f.lozada@coperva.com", "12345678")
 
-if __name__ == '__main__':
-    gepard_automation()
