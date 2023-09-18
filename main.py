@@ -21,6 +21,7 @@ def gepard_automation(userid, passwo):
     # Configuración para evitar notificaciones
     chrome_options = Options()
     chrome_options.add_experimental_option("prefs", {
+        "download.default_directory": "RUTA_DE_DESCARGA_AQUI",
         "profile.default_content_setting_values.notifications": 1,
         "download.prompt_for_download": False,  # Desactiva la ventana emergente de descarga
     "download.directory_upgrade": True,
